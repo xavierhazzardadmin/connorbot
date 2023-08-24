@@ -10,8 +10,6 @@ COPY *.go ./
 
 RUN CGO_ENABLED=0 GOOS=linux go build -o /connorbot
 
-CMD ["/zenbot"]
-
 #Deploy stage
 
 FROM alpine:latest
@@ -19,7 +17,5 @@ FROM alpine:latest
 WORKDIR /
 
 COPY --from=BuildStage /connorbot /connorbot
-
-USER nonroot:nonroot
 
 ENTRYPOINT ["/connorbot"]

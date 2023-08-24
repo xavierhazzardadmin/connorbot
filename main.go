@@ -55,6 +55,14 @@ func messageCreate(s *discordgo.Session, m *discordgo.MessageCreate) {
 		s.ChannelMessageSend(m.ChannelID, "Steve!")
 	}
 
+	if strings.ToLower(m.Content) == "Your Majesty" {
+		s.ChannelMessageSendReply(m.ChannelID, "Yes?", m.Reference())
+	}
+
+	if strings.ToLower(m.Content) == "Steve" {
+		s.ChannelMessageSendReply(m.ChannelID, "That's my name, don't wear it out!", m.Reference())
+	}
+
 	// If the message is "pong" reply with "Ping!"
 	// if strings.ToLower(m.Content) == "pong" {
 	// 	s.ChannelMessageSend(m.ChannelID, "Ping!")

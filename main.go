@@ -2,6 +2,7 @@ package main
 
 import (
 	"fmt"
+	"math/rand"
 	"os"
 	"os/signal"
 	"strings"
@@ -55,20 +56,25 @@ func messageCreate(s *discordgo.Session, m *discordgo.MessageCreate) {
 		s.ChannelMessageSend(m.ChannelID, "Steve!")
 	}
 
-	if strings.ToLower(m.Content) == "Your Majesty" {
+	if strings.ToLower(m.Content) == "your majesty" {
 		s.ChannelMessageSendReply(m.ChannelID, "Yes?", m.Reference())
 	}
 
-	if strings.ToLower(m.Content) == "Steve" {
+	if strings.ToLower(m.Content) == "steve" {
 		s.ChannelMessageSendReply(m.ChannelID, "That's my name, don't wear it out!", m.Reference())
 	}
 
-	// If the message is "pong" reply with "Ping!"
-	// if strings.ToLower(m.Content) == "pong" {
-	// 	s.ChannelMessageSend(m.ChannelID, "Ping!")
-	// }
-	//
-	// if strings.ToLower(m.Content) == "ping pong" {
-	// 	s.ChannelMessageSend(m.ChannelID, "Pong! Ping!")
-	// }
+	if strings.ToLower(m.Content) == "!game" {
+		game := generateRandomGame()
+		s.ChannelMessageSendReply(m.ChannelID, game, m.Reference())
+	}
+
+}
+
+func generateRandomGame() string {
+	games := []string{"Brick Rigs", "Minecraft Java", "Forza Horizon 4", "Forza Horizon 5", "Minecraft Bedrock", "No Man's Sky", "Gang Beast", "Roblox"}
+
+	random := rand.Intn(len(games))
+
+	return games[random]
 }
